@@ -16,11 +16,11 @@ from docutils.parsers.rst import directives
 
 from sphinx import addnodes
 from sphinx.roles import XRefRole
-from sphinx.locale import l_, _
+from sphinx.locale import _ as l_, _
 from sphinx.domains import Domain, ObjType, Index
 from sphinx.directives import ObjectDescription
 from sphinx.util.nodes import make_refnode
-from sphinx.util.compat import Directive
+from docutils.parsers.rst import Directive
 from sphinx.util.docfields import Field, GroupedField, TypedField
 
 
@@ -232,7 +232,7 @@ class RubyObject(ObjectDescription):
         indextext = self.get_index_text(modname, name_cls)
         if indextext:
             self.indexnode['entries'].append(('single', indextext,
-                                              fullname, fullname))
+                                              fullname, fullname, None))
 
     def before_content(self):
         # needed for automatic qualification of members (reset in subclasses)
@@ -416,7 +416,7 @@ class RubyModule(Directive):
         if not noindex:
             indextext = _('%s (module)') % modname
             inode = addnodes.index(entries=[('single', indextext,
-                                             'module-' + modname, modname)])
+                                             'module-' + modname, modname, None)])
             ret.append(inode)
         return ret
 
